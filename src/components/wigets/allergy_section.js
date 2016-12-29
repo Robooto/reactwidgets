@@ -8,11 +8,19 @@ class AllergySection extends Component {
 
     render() {
         return (
-            <p>
-                You got yourself a merry little allergy section
-            </p>
+            <div>
+                <p>
+                    Please click Allergy Search / Select button to add Current Allergies to the list. Free text allergies can be entered using text box below, but they will be indicated with an asterisk (*) and will not be included in interaction and allergy checking when using OA-Rx.
+                </p>
+                <div>
+                    Tool bar area
+                </div>
+                <div>
+                    Grid here
+                </div>
+            </div>
         );
     }
 }
 
-export default connect(null, { })(AllergySection);
+export default connect(null, {})(AllergySection);

@@ -10,10 +10,12 @@ import { fetchSectionLayout } from '../actions/index';
 // Load available widgets
 import AllergySection from './wigets/allergy_section';
 import MedicationSection from './wigets/medication_section';
+import ChiefComplaintSection from './wigets/chief_complaint_section';
 
 const WIDGETS = {
   'AllergySection': AllergySection,
-  'MedicationSection': MedicationSection
+  'MedicationSection': MedicationSection,
+  'ChiefComplaintSection': ChiefComplaintSection
 };
 
 class SectionLayout extends Component {
@@ -23,14 +25,15 @@ class SectionLayout extends Component {
   }
 
   renderSections() {
-    console.log(this.props);
-    return this.props.layout.map((section) => {
-      return (
+    return this.props.layout
+      .filter((item) => item.show)
+      .map((section) => {
+        return (
           <Panel key={section.id} collapsible defaultExpanded={section.expanded} header={section.title}>
             {React.createElement(WIDGETS[section.component])}
           </Panel>
-      );
-    });
+        );
+      });
   }
 
 
