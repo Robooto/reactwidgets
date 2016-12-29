@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Accordion, Panel } from 'react-bootstrap';
+
+import { fetchSectionLayout } from '../actions/index';
 
 import PatientHeader from '../containers/patient_header';
 import ProgressNoteHeader from '../containers/progress_note_header';
@@ -8,13 +11,23 @@ import ProgressNoteHeader from '../containers/progress_note_header';
 import AllergySection from '../components/allergy_section';
 import MedicationSection from '../components/medication_section';
 
-export default class App extends Component {
+const widgets = {
+  'AllergySection': AllergySection,
+  'MedicationSection': MedicationSection
+};
+
+class App extends Component {
+
+  componentWillMount() {
+    this.props.fetchSectionLayout();
+  }
 
   renderSections() {
-    return [{ id: 1, title: 'Allergies', component: <AllergySection />, expanded: true },{ id: 2, title: 'Medications', component: <MedicationSection />, expanded: true }].map((section) => {
+    console.log(this.props);
+    return this.props.layout.map((section) => {
       return (
           <Panel key={section.id} collapsible defaultExpanded={section.expanded} header={section.title}>
-            {section.component}
+            {React.createElement(widgets[section.component])}
           </Panel>
       );
     });
@@ -31,3 +44,10 @@ export default class App extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+    return { layout: state.layout.layout };
+}
+
+
+export default connect(mapStateToProps, { fetchSectionLayout })(App);
