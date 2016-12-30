@@ -1,7 +1,10 @@
+/**
+ * Medication Widget
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//this isn't needed due to what I did below
-import { bindActionCreators } from 'redux';
+
 
 
 class MedicationSection extends Component {

@@ -1,6 +1,9 @@
+/**
+ * Chief Complaint Widget
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 
 
 class ChiefComplaintSection extends Component {
