@@ -1,56 +1,31 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes  } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 
-// 3rd party components
-import { Accordion, Panel } from 'react-bootstrap';
 
 // load actions
-import { fetchSectionEditLayout } from '../actions/index';
+import { fetchSectionEditLayout, updateLayoutSettings } from '../actions/index';
 
 class EditLayout extends Component {
 
-  componentWillMount() {
-    this.props.load();
-  }
+    static contextTypes = {
+        router: PropTypes.object
+    };
+
+    componentWillMount() {
+        this.props.load();
+    }
 
     onFormSubmit(props) {
         console.log(props, 'on submit');
+
+        this.props.updateLayoutSettings(props);
+        this.context.router.push('/');
     }
 
-    // renderSections() {
-    //     const { ChiefComplaint_Expanded, Allergies_Expanded, Medications_Expanded  } = this.props;
-    //     return this.props.layout
-    //         .map((section) => {
-    //             return (
-                    // <div className="panel panel-default" key={section.id}>
-                    //     <div className="panel-heading">
-                    //         <h3 className="panel-title">{`${section.title} settings`}</h3>
-                    //     </div>
-                    //     <div className="panel-body">
-                    //         <div>
-                    //             Expanded: <input type="checkbox" defaultChecked={section.expanded} />
-                    //             <div className="form-control-feedback">
-
-                    //             </div>
-                    //         </div>
-                    //         <div>
-                    //             Show: <input type="checkbox" defaultChecked={section.show} />
-                    //             <div className="form-control-feedback">
-
-                    //             </div>
-                    //         </div>
-                    //     </div>
-                    // </div>
-    //             );
-    //         });
-    // }
-
-
     render() {
-        console.log(this.props);
-        const { handleSubmit } = this.props; 
+        const { handleSubmit } = this.props;
 
         return (
             <div>
@@ -58,15 +33,43 @@ class EditLayout extends Component {
                     {/* this.renderSections() */}
                     <div className="panel panel-default">
                         <div className="panel-heading">
-                            <h3 className="panel-title">{`test settings`}</h3>
+                            <h3 className="panel-title">{`Chief Beef`}</h3>
                         </div>
                         <div className="panel-body">
                             <div>
-                                Expanded: 
-                                <Field component="input" name="ChiefComplaintSection_Expanded" type="checkbox"  />
+                                Expanded:
+                                <Field component="input" name="ChiefComplaintSection_expanded" type="checkbox" />
                             </div>
                             <div>
-                                Show: <Field component="input" name="ChiefComplaintSection_Show" type="checkbox"  />
+                                Show: <Field component="input" name="ChiefComplaintSection_show" type="checkbox" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
+                            <h3 className="panel-title">{`Albert's tees`}</h3>
+                        </div>
+                        <div className="panel-body">
+                            <div>
+                                Expanded:
+                                <Field component="input" name="AllergySection_expanded" type="checkbox" />
+                            </div>
+                            <div>
+                                Show: <Field component="input" name="AllergySection_show" type="checkbox" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
+                            <h3 className="panel-title">{`Medic Vacation`}</h3>
+                        </div>
+                        <div className="panel-body">
+                            <div>
+                                Expanded:
+                                <Field component="input" name="MedicationSection_expanded" type="checkbox" />
+                            </div>
+                            <div>
+                                Show: <Field component="input" name="MedicationSection_show" type="checkbox" />
                             </div>
                         </div>
                     </div>
@@ -94,14 +97,14 @@ function validate(values) {
 EditLayout = reduxForm({
     form: 'EditLayoutForm',
     validate,
-    enableReinitialize : true
-}, null, { })(EditLayout);
+    enableReinitialize: true
+}, null, {})(EditLayout);
 
 EditLayout = connect(
-  state => ({
-    initialValues: state.layout.editLayout // pull initial values from account reducer
-  }),
-  { load: fetchSectionEditLayout }               // bind account loading action creator
+    state => ({
+        initialValues: state.layout.settings // pull initial values from account reducer
+    }),
+    { load: fetchSectionEditLayout, updateLayoutSettings }               // bind account loading action creator
 )(EditLayout)
 
 

@@ -25,7 +25,7 @@ class SectionLayout extends Component {
   }
 
   renderSections() {
-    return this.props.layout
+    return this.props.sections
       .filter((item) => item.show)
       .map((section) => {
         return (
@@ -47,7 +47,7 @@ class SectionLayout extends Component {
 }
 
 function mapStateToProps(state) {
-    return { layout: state.layout.layout };
+    return { sections: state.layout.sections };
 }
 
 

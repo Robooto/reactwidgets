@@ -1,14 +1,15 @@
-import { FETCH_SECTION_LAYOUT, FETCH_SECTION_EDIT_LAYOUT } from '../constants/ActionTypes';
+import { FETCH_SECTION_LAYOUT, FETCH_SECTION_EDIT_LAYOUT, UPDATE_LAYOUT_SETTINGS } from '../constants/ActionTypes';
 
-const INITIAL_STATE = { layout: [], editLayout: {}};
+const INITIAL_STATE = { sections: [], settings: {}};
 
 export default function (state = INITIAL_STATE, action) {
-    console.log(action);
     switch (action.type) {
         case FETCH_SECTION_LAYOUT:
-            return { ...state, layout: action.payload }
+            return { ...state, sections: action.payload }
         case FETCH_SECTION_EDIT_LAYOUT:
-            return { ...state, editLayout: action.payload }
+            return { ...state, settings: action.payload }
+        case UPDATE_LAYOUT_SETTINGS:
+            return {...state}
         default:
             return state;
     }
