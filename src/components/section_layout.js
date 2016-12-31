@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 // 3rd party components
 import { Panel } from 'react-bootstrap';
+import _ from 'lodash';
 
 // load actions
 import { fetchSectionLayout, addSection } from '../actions/index';
@@ -12,7 +13,6 @@ import AllergySection from './wigets/allergy_section';
 import MedicationSection from './wigets/medication_section';
 import ChiefComplaintSection from './wigets/chief_complaint_section';
 
-import _ from 'lodash';
 
 // mapper for POC could be additional reducer
 const WIDGETS = {
