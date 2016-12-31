@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
 
 // 3rd party components
 import { Panel } from 'react-bootstrap';
 
 // load actions
-//import * as actionCreators from '../actions/index';
 import { fetchSectionLayout, addSection } from '../actions/index';
 
 // Load available widgets
@@ -65,19 +63,19 @@ class SectionLayout extends Component {
   }
 
   render() {
-    console.log('render section');
     return (
       <div>
+        <div style={{marginBottom: 10}}>
+          <button onClick={() => this.onAddWidgetClick()} className="btn btn-primary">Add Widget</button>
+          <button onClick={() => this.onAddWidgetClickExpanded()} style={{ marginLeft: 10 }} className="btn btn-primary">Add Widget Expanded</button>        
+        </div>
         {this.renderSections()}
-        <button onClick={() => this.onAddWidgetClick()} className="btn btn-primary">Add Widget</button>
-        <button onClick={() => this.onAddWidgetClickExpanded()} className="btn btn-primary">Add Widget Expanded</button>
       </div>
     );
   }
 }
 
 function mapStateToProps(state, ownProps) {
-  console.log('mapstatetoprops', state, ownProps);
     return { sections: state.layout.sections };
 }
 
