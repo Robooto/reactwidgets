@@ -1,4 +1,4 @@
-import { FETCH_SECTION_LAYOUT, FETCH_SECTION_EDIT_LAYOUT, UPDATE_LAYOUT_SETTINGS } from '../constants/ActionTypes';
+import { FETCH_SECTION_LAYOUT, FETCH_SECTION_EDIT_LAYOUT, UPDATE_LAYOUT_SETTINGS, ADD_SECTION } from '../constants/ActionTypes';
 
 const INITIAL_STATE = { sections: [], settings: {}};
 
@@ -10,6 +10,8 @@ export default function (state = INITIAL_STATE, action) {
             return { ...state, settings: action.payload }
         case UPDATE_LAYOUT_SETTINGS:
             return {...state}
+        case ADD_SECTION:
+            return { ...state, sections: action.payload }
         default:
             return state;
     }

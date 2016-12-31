@@ -12,7 +12,7 @@ const allergies = [
     {
         "ID": 375269,
         "DrugID": 0,
-        "DrugName": "dont care",
+        "DrugName": "Penicillin",
         "Status": 0,
         "DrugTypeID": 0,
         "Type": "E",
@@ -28,10 +28,10 @@ const allergies = [
         "SeverityName": ""
     }];
 
-    const actionType = {
-        0: 'pencil',
-        1: 'remove'
-    };
+const actionType = {
+    0: 'pencil',
+    1: 'remove'
+};
 
 class AllergySection extends Component {
 

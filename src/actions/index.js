@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { FETCH_SECTION_LAYOUT, FETCH_SECTION_EDIT_LAYOUT, UPDATE_LAYOUT_SETTINGS } from '../constants/ActionTypes';
+import { FETCH_SECTION_LAYOUT, FETCH_SECTION_EDIT_LAYOUT, UPDATE_LAYOUT_SETTINGS, ADD_SECTION } from '../constants/ActionTypes';
 
 let layout = [
     {
@@ -55,9 +55,18 @@ export function updateLayoutSettings(settings) {
 
 }
 
+export function addSection(section) {
+    layout = layout.concat(section);
+
+    return {
+        type: ADD_SECTION,
+        payload: layout
+    };
+}
+
 function makeSettingsArray(settings) {
     var arrayKeys = [];
-    _.each(settings, function (value, keyName) {
+    _.each(settings, (value, keyName) => {
 
         var proKey = keyName.split('_');
         arrayKeys = arrayKeys.concat([proKey[0]]);
@@ -69,9 +78,9 @@ function makeSettingsArray(settings) {
 
     // Create an array like the original settings array
     var backArray = [];
-    arrayKeys.forEach(function (value) {
+    arrayKeys.forEach( (value) => {
         var group = {};
-        _.each(settings, function (val, keyName) {
+        _.each(settings, (val, keyName) => {
             if (keyName.indexOf(value) !== -1) {
                 var proKey = keyName.split('_');
                 group[proKey[1]] = val;
@@ -85,7 +94,7 @@ function makeSettingsArray(settings) {
 function flattenLayout(layout) {
     var flat = {};
 
-    layout.forEach(function (value) {
+    layout.forEach((value) => {
         var keys = Object.keys(value);
         flat[value.component + '_' + keys[4]] = value.show;
         flat[value.component + '_' + keys[3]] = value.expanded;

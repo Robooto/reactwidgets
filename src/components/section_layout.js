@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 
 // 3rd party components
-import { Accordion, Panel } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
 
 // load actions
-import { fetchSectionLayout } from '../actions/index';
+//import * as actionCreators from '../actions/index';
+import { fetchSectionLayout, addSection } from '../actions/index';
 
 // Load available widgets
 import AllergySection from './wigets/allergy_section';
 import MedicationSection from './wigets/medication_section';
 import ChiefComplaintSection from './wigets/chief_complaint_section';
 
+import _ from 'lodash';
+
+// mapper for POC could be additional reducer
 const WIDGETS = {
   'AllergySection': AllergySection,
   'MedicationSection': MedicationSection,
@@ -20,8 +25,31 @@ const WIDGETS = {
 
 class SectionLayout extends Component {
 
+
   componentWillMount() {
     this.props.fetchSectionLayout();
+  }
+
+  onAddWidgetClick() {
+    let id = _.uniqueId('test_');
+    this.props.addSection([{
+        id: id,
+        title: 'Medications',
+        component: 'MedicationSection',
+        expanded: false,
+        show: true
+    }]);
+  }
+
+  onAddWidgetClickExpanded() {
+    let id = _.uniqueId('test_');
+    this.props.addSection([{
+        id: id,
+        title: 'Chief Complaint',
+        component: 'ChiefComplaintSection',
+        expanded: true,
+        show: true
+    }]);    
   }
 
   renderSections() {
@@ -36,19 +64,21 @@ class SectionLayout extends Component {
       });
   }
 
-
   render() {
+    console.log('render section');
     return (
       <div>
         {this.renderSections()}
+        <button onClick={() => this.onAddWidgetClick()} className="btn btn-primary">Add Widget</button>
+        <button onClick={() => this.onAddWidgetClickExpanded()} className="btn btn-primary">Add Widget Expanded</button>
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+  console.log('mapstatetoprops', state, ownProps);
     return { sections: state.layout.sections };
 }
 
-
-export default connect(mapStateToProps, { fetchSectionLayout })(SectionLayout);
+export default connect(mapStateToProps, { fetchSectionLayout, addSection })(SectionLayout);
