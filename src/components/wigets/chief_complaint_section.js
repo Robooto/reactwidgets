@@ -3,8 +3,6 @@
  */
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
 
 class ChiefComplaintSection extends Component {
     constructor(props) {
@@ -24,4 +22,4 @@ class ChiefComplaintSection extends Component {
     }
 }
 
-export default connect(null, { })(ChiefComplaintSection);
+export default ChiefComplaintSection;

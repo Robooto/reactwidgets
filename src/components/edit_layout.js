@@ -33,7 +33,7 @@ class EditLayout extends Component {
                     {/* this.renderSections() */}
                     <div className="panel panel-default">
                         <div className="panel-heading">
-                            <h3 className="panel-title">{`Chief Beef`}</h3>
+                            <h3 className="panel-title">Chief Complaint Settings</h3>
                         </div>
                         <div className="panel-body">
                             <div>
@@ -47,7 +47,7 @@ class EditLayout extends Component {
                     </div>
                     <div className="panel panel-default">
                         <div className="panel-heading">
-                            <h3 className="panel-title">{`Albert's tees`}</h3>
+                            <h3 className="panel-title">Allergy Section Settings</h3>
                         </div>
                         <div className="panel-body">
                             <div>
@@ -61,7 +61,7 @@ class EditLayout extends Component {
                     </div>
                     <div className="panel panel-default">
                         <div className="panel-heading">
-                            <h3 className="panel-title">{`Medic Vacation`}</h3>
+                            <h3 className="panel-title">Medication Section Settings</h3>
                         </div>
                         <div className="panel-body">
                             <div>

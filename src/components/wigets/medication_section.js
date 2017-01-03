@@ -3,19 +3,13 @@
  */
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
-
-
-class MedicationSection extends Component {
-
-    render() {
-        return (
-            <p>
-                You got yourself a merry little medication section
-            </p>
-        );
-    }
+const MedicationSection = (props) => {
+    return (
+        <p>
+            You got yourself a merry little medication section
+        </p>
+    );
 }
 
-export default connect(null, { })(MedicationSection);
+export default MedicationSection;

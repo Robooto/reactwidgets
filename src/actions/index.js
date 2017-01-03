@@ -33,7 +33,7 @@ export function fetchSectionLayout() {
 }
 
 export function fetchSectionEditLayout() {
-    let flatLayout = flattenLayout(layout);
+    let flatLayout = layout.reduce(flattenLayout, {});
     return {
         type: FETCH_SECTION_EDIT_LAYOUT,
         payload: flatLayout
@@ -91,15 +91,11 @@ function makeSettingsArray(settings) {
     return backArray;
 }
 
-function flattenLayout(layout) {
-    var flat = {};
 
-    layout.forEach((value) => {
-        var keys = Object.keys(value);
-        flat[value.component + '_' + keys[4]] = value.show;
-        flat[value.component + '_' + keys[3]] = value.expanded;
-        flat[value.component + '_' + keys[0]] = value.id;
-    });
-
-    return flat;
+function flattenLayout(prev, item, index, array) {
+    var keys = Object.keys(item);
+    prev[item.component + '_' + keys[4]] = item.show;
+    prev[item.component + '_' + keys[3]] = item.expanded;
+    prev[item.component + '_' + keys[0]] = item.id;
+    return prev;
 }
