@@ -13,7 +13,6 @@ import AllergySection from './wigets/allergy_section';
 import MedicationSection from './wigets/medication_section';
 import ChiefComplaintSection from './wigets/chief_complaint_section';
 
-
 // mapper for POC could be additional reducer
 const WIDGETS = {
   'AllergySection': AllergySection,

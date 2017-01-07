@@ -5,28 +5,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+//Actions
+import { getAllergies } from '../../actions/allergy_actions';
+
 // Import 3rd party items
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
-const allergies = [
-    {
-        "ID": 375269,
-        "DrugID": 0,
-        "DrugName": "Penicillin",
-        "Status": 0,
-        "DrugTypeID": 0,
-        "Type": "E",
-        "ReactionID": 0,
-        "Reaction": "",
-        "ReactionText": "",
-        "ReactionDate": null,
-        "ProviderName": "Reminder Mate",
-        "ProviderID": 231979,
-        "EncounterTypeID": 25,
-        "pdrDisplay": "none",
-        "SeverityID": 0,
-        "SeverityName": ""
-    }];
 
 const actionType = {
     0: 'pencil',
@@ -34,6 +18,13 @@ const actionType = {
 };
 
 class AllergySection extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentWillMount() {
+        this.props.getAllergies(47032270, 101678795);
+    }
 
     createButton(cell, row, enumObject, rowIndex) {
         return (
@@ -58,7 +49,7 @@ class AllergySection extends Component {
                 <div>
                     Tool bar area
                 </div>
-                <BootstrapTable data={allergies} striped={true} hover={true} pagination>
+                <BootstrapTable data={this.props.allergies} striped={true} hover={true} pagination>
                     <TableHeaderColumn hidden dataField="ID" isKey={true} dataAlign="center" dataSort={true}>ID</TableHeaderColumn>
                     <TableHeaderColumn dataField="Type" dataSort={true}>Type</TableHeaderColumn>
                     <TableHeaderColumn dataField="DrugName" dataSort={true}>Allergy Name</TableHeaderColumn>
@@ -73,7 +64,11 @@ class AllergySection extends Component {
     }
 }
 
-export default connect(null, {})(AllergySection);
+function mapStateToProps(state, ownProps) {
+    return { allergies: state.allergy.allergies}
+}
+
+export default connect(mapStateToProps, { getAllergies })(AllergySection);
 
 class ActionButton extends Component {
   render() {
