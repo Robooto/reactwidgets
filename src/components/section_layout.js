@@ -21,6 +21,14 @@ const WIDGETS = {
 };
 
 class SectionLayout extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      EncounterId: 101678795,
+      PatientId: 47032270
+    };
+  }
 
 
   componentWillMount() {
@@ -50,12 +58,13 @@ class SectionLayout extends Component {
   }
 
   renderSections() {
+    const props = {PatientID: this.state.PatientId, EncounterId: this.state.EncounterId}
     return this.props.sections
       .filter((item) => item.show)
       .map((section) => {
         return (
           <Panel key={section.id} collapsible defaultExpanded={section.expanded} header={section.title}>
-            {React.createElement(WIDGETS[section.component])}
+            {React.createElement(WIDGETS[section.component], props)}
           </Panel>
         );
       });

@@ -10,6 +10,7 @@ import { getAllergies } from '../../actions/allergy_actions';
 
 // Import 3rd party items
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import { GridActionButton } from '../common/bootstrapGridHelpers';
 
 
 const actionType = {
@@ -23,12 +24,12 @@ class AllergySection extends Component {
     }
 
     componentWillMount() {
-        this.props.getAllergies(47032270, 101678795);
+        this.props.getAllergies(this.props.PatientID, this.props.EncounterID);
     }
 
     createButton(cell, row, enumObject, rowIndex) {
         return (
-            <ActionButton rowData={row} rowIndex={rowIndex} type={enumObject} onClick={(enumObject === "remove") ? this.onClickDelete : this.onClickEdit} />
+            <GridActionButton rowData={row} rowIndex={rowIndex} type={enumObject} onClick={(enumObject === "remove") ? this.onClickDelete : this.onClickEdit} />
         );
     }
 
@@ -69,16 +70,3 @@ function mapStateToProps(state, ownProps) {
 }
 
 export default connect(mapStateToProps, { getAllergies })(AllergySection);
-
-class ActionButton extends Component {
-  render() {
-    const { rowData, rowIndex, type, onClick } = this.props;
-    return (
-        <i 
-            role="button" 
-            className={`glyphicon glyphicon-${type}`} 
-            onClick={() => onClick(rowData, rowIndex)}>
-        </i>
-    );
-  }
-}
