@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { FETCH_PATIENT_MEDICATIONS, DELETE_PATIENT_MEDICATION, UPDATE_PATIENT_MEDICATION } from '../constants/ActionTypes';
+import { FETCH_PATIENT_MEDICATIONS, DELETE_PATIENT_MEDICATION, UPDATE_PATIENT_MEDICATION, ADD_PATIENT_MEDICATION, FETCH_SYSTEM_MEDICATIONS } from '../constants/ActionTypes';
 
 export function getMedications(patientId, encounterId) {
     const request = axios.get(`medications/patient/${patientId}/currentmed`, {
@@ -29,6 +29,24 @@ export function updateMedication(med, patientId) {
 
     return {
         type: UPDATE_PATIENT_MEDICATION,
+        payload: request
+    }
+}
+
+export function addMedication(med) {
+    const request = axios.post(`medications/patient/${med.PatientID}/currentmed`, med);
+
+    return {
+        type: ADD_PATIENT_MEDICATION,
+        payload: request
+    }
+}
+
+export function searchMedications() {
+    const request = axios.post(`jqgrid/MedicationsMediSpan`, {"maxrecords":100,"confilter":true,"datafilter":[],"staticparams":[]});
+
+    return {
+        type: FETCH_SYSTEM_MEDICATIONS,
         payload: request
     }
 }

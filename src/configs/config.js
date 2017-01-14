@@ -7,7 +7,7 @@ class ProgressNoteConfig {
     }
 
     static axiosConfig() {
-        axios.defaults.headers.common['X-OA-AUTH-TOKEN'] = 'bgeo9bS-xsiV3VkCHj691T7iHb2wfGa2TBtKkPVxyOE1';
+        axios.defaults.headers.common['X-OA-AUTH-TOKEN'] = 'W5lW9RiBRx1uiScOtoRse687fR7NSIt6nY4rd2zKSsM1';
         axios.defaults.baseURL = 'https://oa-dev-113.oadomain.com/WebAPI/v1';
     }
 }

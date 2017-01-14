@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 //Actions
-import { getMedications, removeMedication, updateMedication } from '../../actions/medication_actions';
+import { getMedications, removeMedication, updateMedication, addMedication } from '../../actions/medication_actions';
 
 // Import 3rd party items
 import { BootstrapTable, TableHeaderColumn  } from 'react-bootstrap-table';
@@ -16,6 +16,7 @@ import { GridActionButton } from '../common/bootstrapGridHelpers';
 // sub components
 import EditSig from './edit_sig';
 import MedicationFreeText from './add_free_med';
+import MedicationSearch from './medication_list';
 
 
 const actionType = {
@@ -26,12 +27,12 @@ const actionType = {
 class MedicationSection extends Component {
     constructor(props) {
         super(props);
-
         // this is a way to kee the scope in the medication section when passing functions to other components
         this.onClickDelete = this.onClickDelete.bind(this);
         this.onClickEdit = this.onClickEdit.bind(this);
         this.handleCloseSig = this.handleCloseSig.bind(this);
         this.handleSigUpdate = this.handleSigUpdate.bind(this);
+        this.handleFreeTextAdd = this.handleFreeTextAdd.bind(this);
 
         // inital state
         this.state = {
@@ -80,9 +81,15 @@ class MedicationSection extends Component {
         this.setState({ showFreeText: false});
     }
 
-    handleFreeTextAdd() {
+    handleFreeTextAdd(med) {
         console.log('add med');
         this.setState({ showFreeText: false});
+        const updatedMed = { ...med, PatientID: this.props.PatientID, EncounterID: this.props.EncounterID};
+        this.props.addMedication(updatedMed);
+
+        // update medication then get grid or do some shianicans
+        // need to learn about react-thunk to remove this
+        setTimeout(() => {this.props.getMedications(this.props.PatientID, this.props.EncounterID)}, 400)
     }
 
     render() {
@@ -93,6 +100,7 @@ class MedicationSection extends Component {
                 </p>
                 <ButtonToolbar>
                     <Button className="pull-right" onClick={() => this.setState({ showFreeText: true})} bsStyle="primary">Add Text Free Text Medication</Button>
+                    <MedicationSearch addMedication={this.handleFreeTextAdd} />
                 </ButtonToolbar>
                 <BootstrapTable data={this.props.medications} striped={true} hover={true} pagination>
                     <TableHeaderColumn hidden dataField="MedicationId" isKey={true} dataAlign="center" dataSort={true}>ID</TableHeaderColumn>
@@ -113,7 +121,7 @@ function mapStateToProps(state, ownProps) {
     return { medications: state.medication.medications }
 }
 
-export default connect(mapStateToProps, { getMedications, removeMedication, updateMedication })(MedicationSection);
+export default connect(mapStateToProps, { getMedications, removeMedication, updateMedication, addMedication })(MedicationSection);
 
 class ActionButton extends Component {
     render() {

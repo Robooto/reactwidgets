@@ -58,7 +58,7 @@ class SectionLayout extends Component {
   }
 
   renderSections() {
-    const props = {PatientID: this.state.PatientId, EncounterId: this.state.EncounterId}
+    const props = {PatientID: this.state.PatientId, EncounterID: this.state.EncounterId}
     return this.props.sections
       .filter((item) => item.show)
       .map((section) => {
